@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MEFExample
 {
@@ -10,6 +6,10 @@ namespace MEFExample
     {
         static void Main(string[] args)
         {
+            HostApp hostApp = new HostApp();
+            hostApp.Start();
+            //just wait to see results
+            Console.ReadKey();
         }
     }
 }
