@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSTimer", "VSTimer\VSTimer.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFExample", "MEFExample\MEFExample.csproj", "{CF93B570-88AD-4803-AB84-E3830F4AE26E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PomodoroStatusBar", "PomodoroStatusBar\PomodoroStatusBar.csproj", "{D6E689FC-1FDE-4909-99C5-CBFFB07B5D67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CF93B570-88AD-4803-AB84-E3830F4AE26E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF93B570-88AD-4803-AB84-E3830F4AE26E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF93B570-88AD-4803-AB84-E3830F4AE26E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E689FC-1FDE-4909-99C5-CBFFB07B5D67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E689FC-1FDE-4909-99C5-CBFFB07B5D67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E689FC-1FDE-4909-99C5-CBFFB07B5D67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E689FC-1FDE-4909-99C5-CBFFB07B5D67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
