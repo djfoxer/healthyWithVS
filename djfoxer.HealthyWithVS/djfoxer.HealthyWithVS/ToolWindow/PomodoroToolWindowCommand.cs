@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="CommandShowTomatoStatusBar.cs" company="Company">
+// <copyright file="PomodoroToolWindowCommand.cs" company="Company">
 //     Copyright (c) Company.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
@@ -9,26 +9,18 @@ using System.ComponentModel.Design;
 using System.Globalization;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using System.Windows.Controls;
-using djfoxer.HealthyWithVS.Helpers;
-using System.Windows;
-using djfoxer.HealthyWithVS.StatusBar;
-using Microsoft.VisualStudio.Settings;
-using Microsoft.VisualStudio.Shell.Settings;
-using djfoxer.HealthyWithVS.Services;
-using djfoxer.HealthyWithVS.Options;
 
-namespace djfoxer.HealthyWithVS
+namespace djfoxer.HealthyWithVS.ToolWindow
 {
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class CommandShowTomatoStatusBar
+    internal sealed class PomodoroToolWindowCommand
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 0x0100;
+        public const int CommandId = 4130;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -41,11 +33,11 @@ namespace djfoxer.HealthyWithVS
         private readonly Package package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommandShowTomatoStatusBar"/> class.
+        /// Initializes a new instance of the <see cref="PomodoroToolWindowCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        private CommandShowTomatoStatusBar(Package package)
+        private PomodoroToolWindowCommand(Package package)
         {
             if (package == null)
             {
@@ -54,41 +46,19 @@ namespace djfoxer.HealthyWithVS
 
             this.package = package;
 
-
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(CommandSet, CommandId);
-                var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
-                menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
+                var menuItem = new MenuCommand(this.ShowToolWindow, menuCommandID);
                 commandService.AddCommand(menuItem);
             }
-
-            if (HealthyWithVSSettingsService.Instance.AutostartPomodoroStatusBar)
-            {
-                UIService.Instance.TogglePomodoroTimerStatusBar();
-            }
-
-        }
-
-        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
-        {
-            var commandText = string.Empty;
-            if (UIService.Instance.IsPomodoroTimerStatusBarVisible())
-            {
-                commandText = "Hide Pomodoro Status Bar ";
-            }
-            else
-            {
-                commandText = "Show Pomodoro Status Bar";
-            }
-            (sender as OleMenuCommand).Text = commandText;
         }
 
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static CommandShowTomatoStatusBar Instance
+        public static PomodoroToolWindowCommand Instance
         {
             get;
             private set;
@@ -111,20 +81,27 @@ namespace djfoxer.HealthyWithVS
         /// <param name="package">Owner package, not null.</param>
         public static void Initialize(Package package)
         {
-            Instance = new CommandShowTomatoStatusBar(package);
+            Instance = new PomodoroToolWindowCommand(package);
         }
 
-
         /// <summary>
-        /// This function is the callback used to execute the command when the menu item is clicked.
-        /// See the constructor to see how the menu item is associated with this function using
-        /// OleMenuCommandService service and MenuCommand class.
+        /// Shows the tool window when the menu item is clicked.
         /// </summary>
-        /// <param name="sender">Event sender.</param>
-        /// <param name="e">Event args.</param>
-        private void MenuItemCallback(object sender, EventArgs e)
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event args.</param>
+        private void ShowToolWindow(object sender, EventArgs e)
         {
-            UIService.Instance.TogglePomodoroTimerStatusBar();
+            // Get the instance number 0 of this tool window. This window is single instance so this instance
+            // is actually the only one.
+            // The last flag is set to true so that if the tool window does not exists it will be created.
+            ToolWindowPane window = this.package.FindToolWindow(typeof(PomodoroToolWindow), 0, true);
+            if ((null == window) || (null == window.Frame))
+            {
+                throw new NotSupportedException("Cannot create tool window");
+            }
+
+            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using djfoxer.HealthyWithVS.Resources;
+﻿using djfoxer.HealthyWithVS.Helpers;
+using djfoxer.HealthyWithVS.Resources;
 using System.Media;
 using System.Timers;
 using System.Windows;
@@ -24,6 +25,8 @@ namespace djfoxer.HealthyWithVS.StatusBar
             Play.Visibility = Visibility.Visible;
             Stop.Visibility = Visibility.Visible;
             Pause.Visibility = Visibility.Hidden;
+
+            Name = Consts.HealthyWithVS_Element_PomodoroTimer;
         }
 
         private void DisTimer_Elapsed(object sender, ElapsedEventArgs e)

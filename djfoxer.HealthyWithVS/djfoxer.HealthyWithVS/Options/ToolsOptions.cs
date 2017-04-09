@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="CommandShowTomatoStatusBarPackage.cs" company="Company">
+// <copyright file="ToolsOptions.cs" company="Company">
 //     Copyright (c) Company.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
@@ -15,10 +15,9 @@ using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
-using djfoxer.HealthyWithVS.Services;
-using djfoxer.HealthyWithVS.Options;
+using djfoxer.HealthyWithVS.Helpers;
 
-namespace djfoxer.HealthyWithVS
+namespace djfoxer.HealthyWithVS.Options
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -38,30 +37,27 @@ namespace djfoxer.HealthyWithVS
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
-    [ProvideMenuResource("Menus.ctmenu", 1)]
-    [Guid(CommandShowTomatoStatusBarPackage.PackageGuidString)]
+    [InstalledProductRegistration("#1110", "#1112", "1.0", IconResourceID = 1400)] // Info on this package for Help/About
+    [Guid(ToolsOptions.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    [ProvideToolWindow(typeof(djfoxer.HealthyWithVS.ToolWindow.PomodoroToolWindow))]
-    //[ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExistsAndFullyLoaded_string)]
-    [ProvideAutoLoad(VSConstants.UICONTEXT.ShellInitialized_string)]
-    public sealed class CommandShowTomatoStatusBarPackage : Package
+    [ProvideOptionPage(typeof(OptionPage),
+    Consts.PluginName, Consts.OptionsCategoryBasicName, 0, 0, true)]
+    public sealed class ToolsOptions : Package
     {
         /// <summary>
-        /// CommandShowTomatoStatusBarPackage GUID string.
+        /// ToolsOptions GUID string.
         /// </summary>
-        public const string PackageGuidString = "03b63e3b-39cd-4c93-98b6-42cf447f55e6";
+        public const string PackageGuidString = "cbbcd34e-64d4-40fb-af3b-de2988b9ba33";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommandShowTomatoStatusBar"/> class.
+        /// Initializes a new instance of the <see cref="ToolsOptions"/> class.
         /// </summary>
-        public CommandShowTomatoStatusBarPackage()
+        public ToolsOptions()
         {
             // Inside this method you can place any initialization code that does not require
             // any Visual Studio service because at this point the package object is created but
             // not sited yet inside Visual Studio environment. The place to do all the other
             // initialization is the Initialize method.
-            HealthyWithVSSettingsService.Instance.AutostartPomodoroStatusBar = ((OptionPage)GetDialogPage(typeof(OptionPage))).AutostartPomodoroStatusBar;
         }
 
         #region Package Members
@@ -72,12 +68,8 @@ namespace djfoxer.HealthyWithVS
         /// </summary>
         protected override void Initialize()
         {
-            CommandShowTomatoStatusBar.Initialize(this);
             base.Initialize();
-            djfoxer.HealthyWithVS.ToolWindow.PomodoroToolWindowCommand.Initialize(this);
         }
-
-
 
         #endregion
     }
