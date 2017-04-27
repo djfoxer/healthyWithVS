@@ -76,7 +76,7 @@ namespace djfoxer.HealthyWithVS
             var commandText = string.Empty;
             if (UIService.Instance.IsPomodoroTimerStatusBarVisible())
             {
-                commandText = "Hide Pomodoro Status Bar ";
+                commandText = "Hide Pomodoro Status Bar";
             }
             else
             {

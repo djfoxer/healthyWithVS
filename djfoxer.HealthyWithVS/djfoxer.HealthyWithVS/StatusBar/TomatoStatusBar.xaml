@@ -6,15 +6,16 @@
              xmlns:local="clr-namespace:djfoxer.HealthyWithVS.StatusBar"
              mc:Ignorable="d" 
              Height="23"
-             Width="125">
+             Width="150">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25"></ColumnDefinition>
             <ColumnDefinition Width="50"></ColumnDefinition>
             <ColumnDefinition Width="25"></ColumnDefinition>
             <ColumnDefinition Width="25"></ColumnDefinition>
+            <ColumnDefinition Width="25"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Image Source="/djfoxer.HealthyWithVS;component/Resources/tomMini.png" Grid.Column="0"></Image>
+        <Image Source="/djfoxer.HealthyWithVS;component/Resources/tomMini.png" Grid.Column="0" ></Image>
         <Label Name="SecondsText"
                Grid.Column="1"
                Foreground="White"
@@ -34,7 +35,11 @@
                 Name="Stop" Background="Transparent" Click="Stop_Click" Visibility="Visible" >
             <Image Source="/djfoxer.HealthyWithVS;component/Resources/control_stop.png"  ></Image>
         </Button>
-
+        <Button Grid.Column="4" 
+                BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" 
+                Name="Workout" Background="Transparent" Click="Workout_Click" Visibility="Visible" >
+            <Image Source="/djfoxer.HealthyWithVS;component/Resources/control_stop.png"  ></Image>
+        </Button>
 
 
     </Grid>
