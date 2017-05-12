@@ -1,6 +1,7 @@
 ﻿using djfoxer.HealthyWithVS.Helpers;
 using djfoxer.HealthyWithVS.LockScreen;
 using djfoxer.HealthyWithVS.Resources;
+using System;
 using System.Media;
 using System.Timers;
 using System.Windows;
@@ -39,6 +40,12 @@ namespace djfoxer.HealthyWithVS.StatusBar
                 SoundPlayer player = new SoundPlayer(MainResource.alarm);
                 player.Load();
                 player.Play();
+                Workout();
+                System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    StopClick();
+                });
+
             }
             else
             {
@@ -55,15 +62,19 @@ namespace djfoxer.HealthyWithVS.StatusBar
             Pause.Visibility = Visibility.Visible;
         }
 
-        private void Stop_Click(object sender, RoutedEventArgs e)
+        private void StopClick()
         {
-
             seconds = maxSeconds;
             SetTimerText();
             disTimer.Stop();
             Play.Visibility = Visibility.Visible;
             Stop.Visibility = Visibility.Visible;
             Pause.Visibility = Visibility.Hidden;
+        }
+
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            StopClick();
         }
 
         private void Pause_Click(object sender, RoutedEventArgs e)
@@ -83,38 +94,45 @@ namespace djfoxer.HealthyWithVS.StatusBar
             });
         }
 
-        private void Workout_Click(object sender, RoutedEventArgs e)
+        private void Workout()
         {
-            foreach (var s in System.Windows.Forms.Screen.AllScreens)
+
+
+
+            System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
             {
-
-                var blockScreen = new BlockScreen();
-                blockScreen.Top = s.Bounds.Top;
-                blockScreen.Left = s.Bounds.Left;
-                blockScreen.Width = s.Bounds.Width;
-                blockScreen.Height = s.Bounds.Height;
-                blockScreen.Show();
-
-            }
-            foreach (Window item in System.Windows.Application.Current.Windows)
-            {
-                item.Closing += Item_Closing;
-                item.Closed += Item_Closed;
-            }
+                foreach (var s in System.Windows.Forms.Screen.AllScreens)
+                {
+                    var blockScreen = new BlockScreen();
+                    blockScreen.Top = s.Bounds.Top;
+                    blockScreen.Left = s.Bounds.Left;
+                    blockScreen.Width = s.Bounds.Width;
+                    blockScreen.Height = s.Bounds.Height;
+                    blockScreen.Show();
+                }
+            });
 
 
-            System.Windows.Forms.Application.AddMessageFilter(new AltF4Filter());
+
+            //foreach (Window item in System.Windows.Application.Current.Windows)
+            //{
+            //    item.Closing += Item_Closing;
+            //    item.Closed += Item_Closed;
+            //}
+
+
+            //System.Windows.Forms.Application.AddMessageFilter(new AltF4Filter());
         }
 
         private void Item_Closed(object sender, System.EventArgs e)
         {
-           
+
         }
 
         private void Item_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            
+
 
         }
 

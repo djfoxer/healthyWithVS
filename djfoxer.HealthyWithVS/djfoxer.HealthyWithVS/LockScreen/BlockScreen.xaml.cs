@@ -55,8 +55,7 @@ namespace djfoxer.HealthyWithVS.LockScreen
 
         protected void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = true;
-            base.OnClosing(e); 
+        
         }
     }
 }
