@@ -203,6 +203,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\ico.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Options\Resources\ToolsOptions.ico" />
     <Content Include="Resources\alarm.wav" />
     <Content Include="Resources\CommandShowTomatoStatusBar.png" />
