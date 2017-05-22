@@ -62,6 +62,7 @@ namespace djfoxer.HealthyWithVS
             // not sited yet inside Visual Studio environment. The place to do all the other
             // initialization is the Initialize method.
             HealthyWithVSSettingsService.Instance.AutostartPomodoroStatusBar = ((OptionPage)GetDialogPage(typeof(OptionPage))).AutostartPomodoroStatusBar;
+            HealthyWithVSSettingsService.Instance.WorkoutActive = ((OptionPage)GetDialogPage(typeof(OptionPage))).WorkoutActive;
         }
 
         #region Package Members

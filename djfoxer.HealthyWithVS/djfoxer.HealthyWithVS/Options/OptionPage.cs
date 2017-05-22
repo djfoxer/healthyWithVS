@@ -17,6 +17,7 @@ namespace djfoxer.HealthyWithVS.Options
         public OptionPage()
         {
             AutostartPomodoroStatusBar = true;
+            WorkoutActive = true;
         }
 
         private bool _AutostartPomodoroStatusBar { get; set; }
@@ -30,6 +31,20 @@ namespace djfoxer.HealthyWithVS.Options
             {
                 _AutostartPomodoroStatusBar = value;
                 HealthyWithVSSettingsService.Instance.AutostartPomodoroStatusBar = value;
+            }
+        }
+
+        private bool _WorkoutActive { get; set; }
+        [Category(Consts.OptionsCategoryBasicName)]
+        [DisplayName(Consts.OptionsCategoryBasicWorkoutActiveText)]
+        [Description(Consts.OptionsCategoryBasicWorkoutActiveInfoText)]
+        public bool WorkoutActive
+        {
+            get { return _WorkoutActive; }
+            set
+            {
+                _WorkoutActive = value;
+                HealthyWithVSSettingsService.Instance.WorkoutActive = value;
             }
         }
 

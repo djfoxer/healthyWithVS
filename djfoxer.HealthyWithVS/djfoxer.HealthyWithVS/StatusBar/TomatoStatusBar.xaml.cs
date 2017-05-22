@@ -1,6 +1,7 @@
 ﻿using djfoxer.HealthyWithVS.Helpers;
 using djfoxer.HealthyWithVS.LockScreen;
 using djfoxer.HealthyWithVS.Resources;
+using djfoxer.HealthyWithVS.Services;
 using System;
 using System.Media;
 using System.Timers;
@@ -17,7 +18,7 @@ namespace djfoxer.HealthyWithVS.StatusBar
     {
         System.Timers.Timer disTimer = new System.Timers.Timer(1000);
         uint seconds = 0;
-        uint maxSeconds = 1500;
+        uint maxSeconds = 15;
 
         public TomatoStatusBar()
         {
@@ -98,20 +99,21 @@ namespace djfoxer.HealthyWithVS.StatusBar
         {
 
 
-
-            System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
+            if (HealthyWithVSSettingsService.Instance.WorkoutActive)
             {
-                foreach (var s in System.Windows.Forms.Screen.AllScreens)
+                System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    var blockScreen = new BlockScreen();
-                    blockScreen.Top = s.Bounds.Top;
-                    blockScreen.Left = s.Bounds.Left;
-                    blockScreen.Width = s.Bounds.Width;
-                    blockScreen.Height = s.Bounds.Height;
-                    blockScreen.Show();
-                }
-            });
-
+                    foreach (var s in System.Windows.Forms.Screen.AllScreens)
+                    {
+                        var blockScreen = new BlockScreen();
+                        blockScreen.Top = s.Bounds.Top;
+                        blockScreen.Left = s.Bounds.Left;
+                        blockScreen.Width = s.Bounds.Width;
+                        blockScreen.Height = s.Bounds.Height;
+                        blockScreen.Show();
+                    }
+                });
+            }
 
 
             //foreach (Window item in System.Windows.Application.Current.Windows)

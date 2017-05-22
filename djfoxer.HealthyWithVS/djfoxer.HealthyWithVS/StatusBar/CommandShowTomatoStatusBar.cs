@@ -66,15 +66,17 @@ namespace djfoxer.HealthyWithVS
 
             if (HealthyWithVSSettingsService.Instance.AutostartPomodoroStatusBar)
             {
-                UIService.Instance.TogglePomodoroTimerStatusBar();
+                MainService.Instance.TogglePomodoroTimerStatusBar();
             }
+
+            MainService.Instance.WriteToActivityLog(ServiceProvider, "Plugin is running", __ACTIVITYLOG_ENTRYTYPE.ALE_INFORMATION);
 
         }
 
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
             var commandText = string.Empty;
-            if (UIService.Instance.IsPomodoroTimerStatusBarVisible())
+            if (MainService.Instance.IsPomodoroTimerStatusBarVisible())
             {
                 commandText = "Hide Pomodoro Status Bar";
             }
@@ -124,7 +126,7 @@ namespace djfoxer.HealthyWithVS
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            UIService.Instance.TogglePomodoroTimerStatusBar();
+            MainService.Instance.TogglePomodoroTimerStatusBar();
         }
     }
 }

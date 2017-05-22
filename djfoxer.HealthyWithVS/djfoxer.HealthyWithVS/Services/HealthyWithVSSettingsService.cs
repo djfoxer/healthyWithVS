@@ -32,5 +32,7 @@ namespace djfoxer.HealthyWithVS.Services
         }
 
         public bool AutostartPomodoroStatusBar { get; set; }
+
+        public bool WorkoutActive { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using djfoxer.HealthyWithVS.Helpers;
 using djfoxer.HealthyWithVS.StatusBar;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +12,9 @@ using System.Windows.Controls;
 
 namespace djfoxer.HealthyWithVS.Services
 {
-    public class UIService
+    public class MainService
     {
-        private UIService()
+        private MainService()
         {
 
         }
@@ -36,15 +38,24 @@ namespace djfoxer.HealthyWithVS.Services
             return (statusBarObj.Children[0] is FrameworkElement frameworkElement && frameworkElement.Name == Consts.HealthyWithVS_Element_PomodoroTimer);
         }
 
-        private static UIService _Instance { get; set; }
+        public void WriteToActivityLog(IServiceProvider serviceProvider, string message, __ACTIVITYLOG_ENTRYTYPE logWarning)
+        {
+            var log = serviceProvider.GetService(typeof(SVsActivityLog)) as IVsActivityLog;
+            if (log != null)
+            {
+                log.LogEntry((UInt32)logWarning, Consts.PluginName, message);
+            }
+        }
 
-        public static UIService Instance
+        private static MainService _Instance { get; set; }
+
+        public static MainService Instance
         {
             get
             {
                 if (_Instance == null)
                 {
-                    _Instance = new UIService();
+                    _Instance = new MainService();
                 }
                 return _Instance;
 
