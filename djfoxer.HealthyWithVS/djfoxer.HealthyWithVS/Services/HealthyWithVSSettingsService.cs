@@ -1,4 +1,5 @@
 ﻿using djfoxer.HealthyWithVS.Options;
+using djfoxer.HealthyWithVS.StatusBar;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,24 @@ namespace djfoxer.HealthyWithVS.Services
 
         public bool AutostartPomodoroStatusBar { get; set; }
 
+        private int _WorkTimerSeconds;
+        public int WorkTimerSeconds
+        {
+            get
+            {
+                return _WorkTimerSeconds;
+            }
+            set
+            {
+                _WorkTimerSeconds = value;
+
+                TomatoStatusBarInstance?.StopClick();
+
+            }
+        }
+
         public bool WorkoutActive { get; set; }
+
+        public TomatoStatusBar TomatoStatusBarInstance { get; set; }
     }
 }

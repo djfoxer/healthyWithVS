@@ -25,10 +25,12 @@ namespace djfoxer.HealthyWithVS.Services
             if ((statusBarObj.Children[0] is FrameworkElement frameworkElement && frameworkElement.Name == Consts.HealthyWithVS_Element_PomodoroTimer))
             {
                 statusBarObj.Children.RemoveAt(0);
+                HealthyWithVSSettingsService.Instance.TomatoStatusBarInstance = null;
             }
             else
             {
-                statusBarObj.Children.Insert(0, new TomatoStatusBar());
+                HealthyWithVSSettingsService.Instance.TomatoStatusBarInstance = new TomatoStatusBar();
+                statusBarObj.Children.Insert(0, HealthyWithVSSettingsService.Instance.TomatoStatusBarInstance);
             }
         }
 

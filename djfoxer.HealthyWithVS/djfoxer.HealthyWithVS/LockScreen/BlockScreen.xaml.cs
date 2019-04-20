@@ -27,7 +27,7 @@ namespace djfoxer.HealthyWithVS.LockScreen
         public BlockScreen()
         {
             InitializeComponent();
-            timer = new Timer(5000);
+            timer = new Timer(10000);
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }

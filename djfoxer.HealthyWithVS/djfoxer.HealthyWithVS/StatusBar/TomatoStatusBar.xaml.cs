@@ -18,13 +18,12 @@ namespace djfoxer.HealthyWithVS.StatusBar
     {
         System.Timers.Timer disTimer = new System.Timers.Timer(1000);
         uint seconds = 0;
-        uint maxSeconds = 15;
 
         public TomatoStatusBar()
         {
             InitializeComponent();
             disTimer.Elapsed += DisTimer_Elapsed;
-            seconds = maxSeconds;
+            seconds = (uint)HealthyWithVSSettingsService.Instance.WorkTimerSeconds * 60;
             SetTimerText();
             Play.Visibility = Visibility.Visible;
             Stop.Visibility = Visibility.Visible;
@@ -63,9 +62,9 @@ namespace djfoxer.HealthyWithVS.StatusBar
             Pause.Visibility = Visibility.Visible;
         }
 
-        private void StopClick()
+        public void StopClick()
         {
-            seconds = maxSeconds;
+            seconds = (uint)HealthyWithVSSettingsService.Instance.WorkTimerSeconds * 60;
             SetTimerText();
             disTimer.Stop();
             Play.Visibility = Visibility.Visible;

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="djfoxer.HealthyWithVS.7372ee27-c337-4c4e-b387-dd64b96a527d" Version="0.2" Language="en-US" Publisher="djfoxer" />
+    <Identity Id="djfoxer.HealthyWithVS.7372ee27-c337-4c4e-b387-dd64b96a527d" Version="0.3" Language="en-US" Publisher="djfoxer" />
     <DisplayName>Healthy With VS</DisplayName>
     <Description xml:space="preserve">Make tasks with Pomodoro Technique Timer and workout when breaks come. Extension add Pomodoro Timer on Visual Studio status bar and show full screen exercises when break begin.</Description>
     <Icon>Resources\ico.png</Icon>

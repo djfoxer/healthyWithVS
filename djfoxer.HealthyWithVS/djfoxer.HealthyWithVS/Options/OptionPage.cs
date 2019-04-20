@@ -18,6 +18,7 @@ namespace djfoxer.HealthyWithVS.Options
         {
             AutostartPomodoroStatusBar = true;
             WorkoutActive = true;
+            WorkTimerSeconds = 25;
         }
 
         private bool _AutostartPomodoroStatusBar { get; set; }
@@ -45,6 +46,23 @@ namespace djfoxer.HealthyWithVS.Options
             {
                 _WorkoutActive = value;
                 HealthyWithVSSettingsService.Instance.WorkoutActive = value;
+            }
+        }
+
+        private int _WorkTimerSeconds { get; set; }
+        [Category(Consts.OptionsCategoryBasicName)]
+        [DisplayName(Consts.OptionsCategoryBasicWorkTimeText)]
+        [Description(Consts.OptionsCategoryBasicWorkTimeInfoText)]
+        public int WorkTimerSeconds
+        {
+            get { return _WorkTimerSeconds; }
+            set
+            {
+                if (value > 0)
+                {
+                    _WorkTimerSeconds = value;
+                    HealthyWithVSSettingsService.Instance.WorkTimerSeconds = value;
+                }
             }
         }
 
