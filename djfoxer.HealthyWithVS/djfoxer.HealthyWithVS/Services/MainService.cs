@@ -19,18 +19,24 @@ namespace djfoxer.HealthyWithVS.Services
 
         }
 
-        public void TogglePomodoroTimerStatusBar()
+        public void TogglePomodoroTimerStatusBar(bool forceEnabled)
         {
             var statusBarObj = UIHelper.FindChildControl<DockPanel>(Application.Current.MainWindow, Consts.VisualStudioStatusBarName);
-            if ((statusBarObj.Children[0] is FrameworkElement frameworkElement && frameworkElement.Name == Consts.HealthyWithVS_Element_PomodoroTimer))
+            if (statusBarObj != null)
             {
-                statusBarObj.Children.RemoveAt(0);
-                HealthyWithVSSettingsService.Instance.TomatoStatusBarInstance = null;
-            }
-            else
-            {
-                HealthyWithVSSettingsService.Instance.TomatoStatusBarInstance = new TomatoStatusBar();
-                statusBarObj.Children.Insert(0, HealthyWithVSSettingsService.Instance.TomatoStatusBarInstance);
+                if (statusBarObj.Children.Count > 0 && (statusBarObj.Children[0] is FrameworkElement frameworkElement && frameworkElement.Name == Consts.HealthyWithVS_Element_PomodoroTimer))
+                {
+                    if (!forceEnabled)
+                    {
+                        statusBarObj.Children.RemoveAt(0);
+                        HealthyWithVSSettingsService.Instance.TomatoStatusBarInstance = null;
+                    }
+                }
+                else
+                {
+                    HealthyWithVSSettingsService.Instance.TomatoStatusBarInstance = new TomatoStatusBar();
+                    statusBarObj.Children.Insert(0, HealthyWithVSSettingsService.Instance.TomatoStatusBarInstance);
+                }
             }
         }
 

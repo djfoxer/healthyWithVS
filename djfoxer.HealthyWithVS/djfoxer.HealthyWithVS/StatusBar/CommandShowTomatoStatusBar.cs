@@ -66,7 +66,7 @@ namespace djfoxer.HealthyWithVS
 
             if (HealthyWithVSSettingsService.Instance.AutostartPomodoroStatusBar)
             {
-                MainService.Instance.TogglePomodoroTimerStatusBar();
+                MainService.Instance.TogglePomodoroTimerStatusBar(true);
             }
 
             MainService.Instance.WriteToActivityLog(ServiceProvider, "Plugin is running", __ACTIVITYLOG_ENTRYTYPE.ALE_INFORMATION);
@@ -126,7 +126,7 @@ namespace djfoxer.HealthyWithVS
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            MainService.Instance.TogglePomodoroTimerStatusBar();
+            MainService.Instance.TogglePomodoroTimerStatusBar(false);
         }
     }
 }
